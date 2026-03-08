@@ -1,0 +1,28 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "gfl-marketplace",
+  "description": "Personal Claude Code plugin marketplace — ramp (adaptive learning) and tools (global toolbox)",
+  "owner": { "name": "Bernie Green" },
+  "plugins": [
+    {
+      "name": "ramp",
+      "description": "Adaptive learning mode for Claude Code — knowledge graphs, spaced repetition, and passive skill observation",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/gf-labs/ramp.git"
+      },
+      "category": "productivity",
+      "author": { "name": "Bernie Green" }
+    },
+    {
+      "name": "tools",
+      "description": "Personal global toolbox — audit, cleanup, doctor, history, snapshot, status",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/gf-labs/claude-toolbox.git"
+      },
+      "category": "productivity",
+      "author": { "name": "Bernie Green" }
+    }
+  ]
+}
