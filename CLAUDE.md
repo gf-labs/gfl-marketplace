@@ -40,12 +40,15 @@ pull new code from GitHub. For most plugin changes, prefer `--plugin-dir` during
 "extraKnownMarketplaces": {
   "gfl-marketplace": {
     "source": {
-      "source": "directory",
-      "path": "/Users/berniegreen/Repos/gfl/gfl-marketplace"
+      "source": "github",
+      "repo": "bgreen280/gfl-marketplace"
     }
   }
 }
 ```
+
+No local clone needed. Claude fetches the catalog from GitHub. Push changes to `marketplace.json`
+before expecting them to take effect.
 
 ## Adding a plugin
 
