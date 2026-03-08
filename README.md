@@ -7,82 +7,38 @@ Personal Claude Code plugin marketplace for Greenfield Labs.
 - `ramp@gfl-marketplace` — adaptive learning mode, knowledge graphs, spaced repetition
 - `tools@gfl-marketplace` — personal global toolbox (audit, cleanup, doctor, history, etc.)
 
----
-
 ## Setup
 
-### Step 1 — Register the marketplace
-
-Add to `~/.claude/settings.json`:
-
+Register in `~/.claude/settings.json`:
 ```json
 "extraKnownMarketplaces": {
   "gfl-marketplace": {
-    "source": {
-      "source": "github",
-      "repo": "bgreen280/gfl-marketplace"
-    }
+    "source": { "source": "directory", "path": "/Users/berniegreen/Repos/gfl/gfl-marketplace" }
   }
 }
 ```
 
-> **Note:** This repo is private. GitHub auth must be configured for your Claude Code
-> installation (standard for private plugin repos).
-
-### Step 2 — Install plugins
-
-In any Claude Code session:
-
+Then in any Claude Code session:
 ```
 /plugin install ramp@gfl-marketplace
 /plugin install tools@gfl-marketplace
 ```
 
----
+## Local development
 
-## How it works
+This marketplace is a local directory source — `marketplace.json` is read directly from disk.
+Manifest changes are live immediately with no push.
 
-The marketplace is a pure manifest — no plugin code lives here. When you run
-`/plugin install`, Claude Code:
-
-1. Reads `marketplace.json` from this repo
-2. Finds the plugin's GitHub URL source
-3. Clones the plugin repo into `~/.claude/plugins/cache/`
-
----
-
-## Local development (plugin authors)
-
-To develop a plugin locally with changes reflected immediately, bypass the marketplace
-and load the plugin directly:
+For active plugin development (editing commands, hooks, or scripts in ramp or claude-toolbox),
+use `--plugin-dir` to load the plugin live from its local repo, bypassing the marketplace cache:
 
 ```bash
 claude --plugin-dir ~/Repos/gfl/ramp           # develop ramp live
 claude --plugin-dir ~/Repos/gfl/claude-toolbox  # develop tools live
 ```
 
-Changes are picked up on session restart. No reinstall or version bump required.
+To pick up changes in the installed (cached) version: bump version in `.claude-plugin/plugin.json`,
+push to GitHub, then reinstall with `/plugin install ramp@gfl-marketplace`.
 
-To test the installed (cached) version, reinstall after pushing changes:
-
-```
-/plugin uninstall ramp@gfl-marketplace
-/plugin install ramp@gfl-marketplace
-```
-
----
-
-## Developer registration (directory source)
-
-On your dev machine, use a local `directory` source so manifest changes are live immediately:
-
-```json
-"extraKnownMarketplaces": {
-  "gfl-marketplace": {
-    "source": {
-      "source": "directory",
-      "path": "/Users/berniegreen/Repos/gfl/gfl-marketplace"
-    }
-  }
-}
-```
+Note: `/reload-plugins` (hyphen) reloads active plugins for minor in-session changes but does
+not pull new code from GitHub.
