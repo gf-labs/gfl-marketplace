@@ -13,7 +13,7 @@ Register in `~/.claude/settings.json`:
 ```json
 "extraKnownMarketplaces": {
   "gfl-marketplace": {
-    "source": { "source": "directory", "path": "/Users/berniegreen/Repos/gfl/gfl-marketplace" }
+    "source": { "source": "github", "repo": "gf-labs/gfl-marketplace" }
   }
 }
 ```
