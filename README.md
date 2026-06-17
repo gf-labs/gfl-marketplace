@@ -1,11 +1,11 @@
 # gfl-marketplace
 
-Personal Claude Code plugin marketplace for Greenfield Labs.
+The Greenfield Labs Claude Code plugin marketplace.
 
 ## Plugins
 
 - `ramp@gfl-marketplace` — adaptive learning mode, knowledge graphs, spaced repetition
-- `tools@gfl-marketplace` — personal global toolbox (audit, cleanup, doctor, history, etc.)
+- `tools@gfl-marketplace` — global toolbox (audit, cleanup, doctor, history, etc.)
 
 ## Setup
 
@@ -33,8 +33,8 @@ For active plugin development (editing commands, hooks, or scripts in ramp or cl
 use `--plugin-dir` to load the plugin live from its local repo, bypassing the marketplace cache:
 
 ```bash
-claude --plugin-dir ~/Repos/gfl/ramp           # develop ramp live
-claude --plugin-dir ~/Repos/gfl/claude-toolbox  # develop tools live
+claude --plugin-dir path/to/ramp            # develop ramp live
+claude --plugin-dir path/to/claude-toolbox  # develop tools live
 ```
 
 To pick up changes in the installed (cached) version: bump version in `.claude-plugin/plugin.json`,

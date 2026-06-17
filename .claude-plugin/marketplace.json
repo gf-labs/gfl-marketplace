@@ -1,8 +1,8 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "gfl-marketplace",
-  "description": "Personal Claude Code plugin marketplace — ramp (adaptive learning) and tools (global toolbox)",
-  "owner": { "name": "Bernie Green" },
+  "description": "Greenfield Labs Claude Code plugin marketplace — ramp (adaptive learning) and tools (global toolbox)",
+  "owner": { "name": "Greenfield Labs", "url": "https://github.com/gf-labs" },
   "plugins": [
     {
       "name": "ramp",
@@ -16,7 +16,7 @@
     },
     {
       "name": "tools",
-      "description": "Personal global toolbox — audit, cleanup, doctor, history, snapshot, status",
+      "description": "Global toolbox for Claude Code — audit, cleanup, doctor, history, snapshot, status",
       "source": {
         "source": "url",
         "url": "https://github.com/gf-labs/claude-toolbox.git"

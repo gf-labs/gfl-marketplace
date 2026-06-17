@@ -6,7 +6,7 @@
 It is a **pure manifest** — no plugin code lives here. It catalogs two plugins:
 
 - `ramp` — adaptive learning mode, knowledge graphs, spaced repetition
-- `tools` — personal global toolbox (audit, cleanup, doctor, history, etc.)
+- `tools` — global toolbox (audit, cleanup, doctor, history, etc.)
 
 Plugin sources are GitHub HTTPS URL references. On `/plugin install`, the plugin system
 clones those repos into its local cache.
@@ -20,8 +20,8 @@ session. No push needed for manifest changes to take effect.
 **Plugin code changes use `--plugin-dir`.** For active development of ramp or tools, bypass
 the marketplace entirely and load the plugin live from its local repo:
 ```bash
-claude --plugin-dir ~/Repos/gfl/ramp           # develop ramp live
-claude --plugin-dir ~/Repos/gfl/claude-toolbox  # develop tools live
+claude --plugin-dir path/to/ramp            # develop ramp live
+claude --plugin-dir path/to/claude-toolbox  # develop tools live
 ```
 No install, no cache rebuild, no push. Changes are live immediately.
 
