@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "gfl-marketplace",
-  "description": "Greenfield Labs Claude Code plugin marketplace — ramp (adaptive learning) and tools (global toolbox)",
+  "description": "Greenfield Labs Claude Code plugin marketplace — ramp (adaptive learning) and tools (session lifecycle management)",
   "owner": { "name": "Greenfield Labs", "url": "https://github.com/gf-labs" },
   "plugins": [
     {
@@ -16,7 +16,7 @@
     },
     {
       "name": "tools",
-      "description": "Global toolbox for Claude Code — audit, cleanup, doctor, history, snapshot, status",
+      "description": "Session lifecycle management for Claude Code — orient, checkpoint, archive, and health checks",
       "source": {
         "source": "url",
         "url": "https://github.com/gf-labs/claude-toolbox.git"
