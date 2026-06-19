@@ -1,5 +1,8 @@
 <p align="center">
-  <!-- LOGO: drop a hosted Greenfield Labs glyph here later, e.g. <img src="docs/assets/gfl.png" width="120"> -->
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/lockup-dark.png">
+    <img src="docs/assets/lockup.png" alt="Greenfield Labs" width="420">
+  </picture>
 </p>
 
 <h1 align="center">gfl-marketplace</h1>
@@ -7,7 +10,8 @@
 <p align="center"><em>The Greenfield Labs plugin marketplace for Claude Code — one place to install, update, and share the tools that make a team productive.</em></p>
 
 <p align="center">
-  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-22c55e?style=flat-square" alt="license"></a>
+  <a href="https://github.com/gf-labs/gfl-marketplace/actions/workflows/validate.yml"><img src="https://github.com/gf-labs/gfl-marketplace/actions/workflows/validate.yml/badge.svg" alt="validate"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-21A64A?style=flat-square" alt="license"></a>
   <img src="https://img.shields.io/badge/Claude_Code-marketplace-d97757?style=flat-square&logo=anthropic&logoColor=white" alt="Claude Code marketplace">
   <img src="https://img.shields.io/badge/plugins-2-6366f1?style=flat-square" alt="plugins">
 </p>
@@ -118,7 +122,7 @@ Greenfield Labs builds developer tooling for Claude Code with a single throughli
 
 ## Acknowledgements
 
-Built on [Claude Code](https://claude.com/claude-code) and the [Claude Code plugin system](https://docs.anthropic.com/en/docs/claude-code/plugins) by Anthropic. The marketplace manifest follows the schema published in [`anthropics/claude-plugins-official`](https://github.com/anthropics/claude-plugins-official).
+Built on [Claude Code](https://claude.com/claude-code) and the [Claude Code plugin system](https://code.claude.com/docs/en/plugins) by Anthropic. The marketplace manifest follows the schema published in [`anthropics/claude-plugins-official`](https://github.com/anthropics/claude-plugins-official).
 
 ---
 
