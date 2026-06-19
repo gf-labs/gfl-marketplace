@@ -6,7 +6,7 @@
 It is a **pure manifest** — no plugin code lives here. It catalogs two plugins:
 
 - `ramp` — adaptive learning mode, knowledge graphs, spaced repetition
-- `tools` — global toolbox (audit, cleanup, doctor, history, etc.)
+- `tools` — session lifecycle management (orient, checkpoint, archive, health checks)
 
 Plugin sources are GitHub HTTPS URL references. On `/plugin install`, the plugin system
 clones those repos into its local cache.
@@ -65,13 +65,20 @@ before expecting them to take effect.
 
 | File | Role |
 |------|------|
-| `.claude-plugin/marketplace.json` | Plugin catalog — the only file that matters |
-| `README.md` | Setup and local dev reference |
+| `.claude-plugin/marketplace.json` | Plugin catalog — the manifest everything else exists to protect |
+| `scripts/validate-marketplace.py` | Validates the manifest against the catalog's house conventions |
+| `.github/workflows/validate.yml` | CI gate — runs the validator on every change |
+| `README.md` | Public front door — what/why/how, install, troubleshooting, contributing |
 
-## Schema notes (from anthropics/claude-plugins-official)
+## Schema notes
 
-- `$schema` field is required (the published URL is a schema *identifier*, not a fetchable
-  document — it 404s by design, and is the exact value used by `anthropics/claude-plugins-official`)
-- `description` lives at top level (not nested under `metadata`)
-- URL sources use HTTPS `.git` URLs (not SSH)
-- Optional `sha` field available for pinning to a specific commit
+The manifest follows the official schema (`anthropics/claude-plugins-official`) with a few
+deliberately strict **house conventions** the CI validator enforces (see README "House conventions"):
+
+- **`$schema`** — optional in the official schema (Claude Code ignores it at load time); we
+  require it for editor autocomplete. The published URL is an *identifier*, not a fetchable
+  document — it 404s by design, and is the exact value `anthropics/claude-plugins-official` uses.
+- **`description`** — kept top-level; the schema also accepts it under `metadata`.
+- **Sources** — we standardize on `url` (HTTPS `github.com`, `.git` suffix). The schema is
+  broader: it also allows `github`/`git-subdir`/`npm`, and `url` accepts SSH and bare URLs.
+- **`sha`** — optional; pins a plugin to an exact commit. We track each plugin's default branch.
