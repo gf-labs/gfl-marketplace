@@ -13,9 +13,13 @@ clones those repos into its local cache.
 
 ## How local development works
 
-**Marketplace changes are live.** This repo is registered in `~/.claude/settings.json` as
-a local `directory` source, so Claude Code reads `marketplace.json` from disk on every
-session. No push needed for manifest changes to take effect.
+**Two ways to register this marketplace** (the `github` source is canonical — it's what end
+users get; see "Settings.json registration" below):
+
+- **`github` source** — Claude Code fetches `marketplace.json` from GitHub. Push manifest
+  changes before they take effect. This is how the catalog is meant to be consumed.
+- **`directory` source** (optional, local dev) — point Claude Code at this repo on disk and it
+  reads `marketplace.json` from disk every session, so manifest edits are live with no push.
 
 **Plugin code changes use `--plugin-dir`.** For active development of ramp or tools, bypass
 the marketplace entirely and load the plugin live from its local repo:
@@ -66,7 +70,8 @@ before expecting them to take effect.
 
 ## Schema notes (from anthropics/claude-plugins-official)
 
-- `$schema` field is required
+- `$schema` field is required (the published URL is a schema *identifier*, not a fetchable
+  document — it 404s by design, and is the exact value used by `anthropics/claude-plugins-official`)
 - `description` lives at top level (not nested under `metadata`)
 - URL sources use HTTPS `.git` URLs (not SSH)
 - Optional `sha` field available for pinning to a specific commit
