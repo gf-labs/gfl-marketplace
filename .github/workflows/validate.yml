@@ -1,0 +1,29 @@
+name: validate
+
+# A marketplace is only as good as its manifest. This gate parses and validates
+# .claude-plugin/marketplace.json on every change so a broken catalog can never
+# reach main (and never break `/plugin install` for anyone downstream).
+
+on:
+  push:
+    paths:
+      - ".claude-plugin/marketplace.json"
+      - "scripts/validate-marketplace.py"
+      - ".github/workflows/validate.yml"
+  pull_request:
+    paths:
+      - ".claude-plugin/marketplace.json"
+      - "scripts/validate-marketplace.py"
+      - ".github/workflows/validate.yml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate marketplace manifest
+        run: python3 scripts/validate-marketplace.py
