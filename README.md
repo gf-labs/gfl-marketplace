@@ -32,6 +32,15 @@ That distribution channel is a **marketplace**. `gfl-marketplace` is the Greenfi
 - **Why** — so a whole team installs, pins, and updates plugins consistently instead of copying files by hand.
 - **How** — you register the marketplace once, then `/plugin install <name>@gfl-marketplace`. On install, Claude Code clones each plugin's source repo into its local cache.
 
+```mermaid
+flowchart TD
+    A["Register once — /plugin marketplace add gf-labs/gfl-marketplace"] --> B["Claude Code fetches marketplace.json from GitHub"]
+    B --> C["/plugin install ramp@gfl-marketplace"]
+    C --> D["Resolve the plugin's source.url from the catalog"]
+    D --> E["Clone that repo into the local plugin cache"]
+    E --> F["Plugin active — its skills, hooks, and agents load"]
+```
+
 ---
 
 ## The plugins
@@ -47,13 +56,13 @@ That distribution channel is a **marketplace**. `gfl-marketplace` is the Greenfi
 
 Register the marketplace once, then install whatever you need:
 
-```
+```text
 /plugin marketplace add gf-labs/gfl-marketplace
 /plugin install ramp@gfl-marketplace
 /plugin install tools@gfl-marketplace
 ```
 
-Prefer a declarative, version-controlled setup? Register it in `~/.claude/settings.json` instead:
+Prefer a declarative, version-controlled setup? Merge this into `~/.claude/settings.json` instead (add the key alongside any you already have):
 
 ```json
 "extraKnownMarketplaces": {
@@ -63,9 +72,19 @@ Prefer a declarative, version-controlled setup? Register it in `~/.claude/settin
 }
 ```
 
-No local clone needed — Claude Code fetches the catalog from GitHub. Update a plugin any time with `/plugin update <name>@gfl-marketplace`.
+No local clone needed — Claude Code fetches the catalog from GitHub. Refresh it any time with `/plugin marketplace update gfl-marketplace`.
 
 > Some plugins have their own prerequisites — `tools`, for example, needs a `CLAUDE_TOOLBOX_ROOT` environment variable. Each plugin's own README covers its specifics.
+
+---
+
+## Troubleshooting
+
+| Symptom | Likely cause | Fix |
+|---------|--------------|-----|
+| `/plugin install` fails with `could not read Username` or a clone/auth error | The plugin's source repo is private, or git has no GitHub HTTPS credential | The source repo must be public or you must have access to it. If your `gh` is SSH-only, run `gh auth setup-git` so git can clone over HTTPS with your token. |
+| A plugin's code change isn't showing up | Installs are cached by version | Bump the plugin's `version` in its `plugin.json`, push, then reinstall. `/reload-plugins` only picks up minor in-session edits — it won't pull new code from GitHub. |
+| The catalog looks stale — e.g. a newly added plugin is missing | Your local copy of the marketplace is cached | Refresh it with `/plugin marketplace update gfl-marketplace`. |
 
 ---
 
@@ -90,12 +109,12 @@ A catalog entry looks like this:
 }
 ```
 
-**Manifest rules** (from the official `claude-plugins-official` schema):
+**House conventions** — a deliberately strict subset of what the [official schema](https://github.com/anthropics/claude-plugins-official) allows, enforced on every change by [`scripts/validate-marketplace.py`](scripts/validate-marketplace.py) in CI so the catalog and these docs can't drift:
 
-- `$schema` is required.
-- `description` lives at the top level — not nested under `metadata`.
-- URL sources use HTTPS `.git` URLs, not SSH.
-- An optional `sha` field pins a plugin to a specific commit.
+- **`$schema` present.** The official schema treats it as optional (Claude Code ignores it at load time); we require it so editors get autocomplete. The value is an *identifier*, not a fetchable URL — it 404s by design.
+- **`description` at the top level.** The schema also accepts it under `metadata` for backward compatibility; we keep it top-level.
+- **HTTPS `github.com` `.git` `url` sources.** The schema is broader — it also allows `github` (`owner/repo`), `git-subdir`, and `npm` sources, and `url` accepts SSH and bare URLs — but this catalog standardizes on one form.
+- **`sha` (optional) pins a plugin to a commit.** We track each plugin's default branch; add a `sha` for a reproducible, pinned install.
 
 ---
 
