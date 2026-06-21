@@ -1,4 +1,17 @@
+# OS / editor cruft
 .DS_Store
-.claude/settings.local.json
+
+# Python
 __pycache__/
 *.py[cod]
+
+# Local env & secrets
+.env
+.venv/
+venv/
+
+# Local Claude Code settings (never commit personal config/permissions)
+.claude/settings.local.json
+
+# Internal working notes — brainstorms, specs, audits — kept out of the public repo
+docs/superpowers/
