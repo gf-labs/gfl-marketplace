@@ -74,7 +74,7 @@ Prefer a declarative, version-controlled setup? Merge this into `~/.claude/setti
 
 No local clone needed — Claude Code fetches the catalog from GitHub. Refresh it any time with `/plugin marketplace update gfl-marketplace`.
 
-> Some plugins have their own prerequisites — `tools`, for example, needs a `CLAUDE_TOOLBOX_ROOT` environment variable. Each plugin's own README covers its specifics.
+> Some plugins have their own prerequisites — `tools`, for example, needs a `CLAUDE_TOOLBOX_ROOT` environment variable set (a local clone plus one line in `settings.json`) before its commands will run — see [its README](https://github.com/gf-labs/claude-toolbox). Each plugin's own README covers its specifics.
 
 ---
 
@@ -85,6 +85,7 @@ No local clone needed — Claude Code fetches the catalog from GitHub. Refresh i
 | `/plugin install` fails with `could not read Username` or a clone/auth error | The plugin's source repo is private, or git has no GitHub HTTPS credential | The source repo must be public or you must have access to it. If your `gh` is SSH-only, run `gh auth setup-git` so git can clone over HTTPS with your token. |
 | A plugin's code change isn't showing up | Installs are cached by version | Bump the plugin's `version` in its `plugin.json`, push, then reinstall. `/reload-plugins` only picks up minor in-session edits — it won't pull new code from GitHub. |
 | The catalog looks stale — e.g. a newly added plugin is missing | Your local copy of the marketplace is cached | Refresh it with `/plugin marketplace update gfl-marketplace`. |
+| `/tools:*` commands error or do nothing right after install | `tools` needs its `CLAUDE_TOOLBOX_ROOT` environment variable set | Follow the one-time setup in [`claude-toolbox`](https://github.com/gf-labs/claude-toolbox)'s README — a local clone plus one line in `settings.json`. |
 
 ---
 
