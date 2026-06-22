@@ -10,11 +10,14 @@ on:
       - ".claude-plugin/marketplace.json"
       - "scripts/validate-marketplace.py"
       - ".github/workflows/validate.yml"
+      # README's plugins badge is cross-checked by the validator, so doc-only edits must re-run it.
+      - "README.md"
   pull_request:
     paths:
       - ".claude-plugin/marketplace.json"
       - "scripts/validate-marketplace.py"
       - ".github/workflows/validate.yml"
+      - "README.md"
   workflow_dispatch:
 
 # Least privilege: the job only needs to read the checked-out tree.
