@@ -73,7 +73,7 @@ before expecting them to take effect.
 ## Schema notes
 
 The manifest follows the official schema (`anthropics/claude-plugins-official`) with a few
-deliberately strict **house conventions** the CI validator enforces (see README "House conventions"):
+deliberately strict **house conventions** — the first three enforced by the CI validator (see README "House conventions"):
 
 - **`$schema`** — optional in the official schema (Claude Code ignores it at load time); we
   require it for editor autocomplete. The published URL is an *identifier*, not a fetchable
@@ -81,4 +81,4 @@ deliberately strict **house conventions** the CI validator enforces (see README 
 - **`description`** — kept top-level; the schema also accepts it under `metadata`.
 - **Sources** — we standardize on `url` (HTTPS `github.com`, `.git` suffix). The schema is
   broader: it also allows `github`/`git-subdir`/`npm`, and `url` accepts SSH and bare URLs.
-- **`sha`** — optional; pins a plugin to an exact commit. We track each plugin's default branch.
+- **`sha`** — optional and **not validator-checked**; pins a plugin to an exact commit. We track each plugin's default branch.
