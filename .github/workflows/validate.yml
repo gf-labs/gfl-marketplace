@@ -12,12 +12,13 @@ on:
       - ".github/workflows/validate.yml"
       # README's plugins badge is cross-checked by the validator, so doc-only edits must re-run it.
       - "README.md"
+  # Deliberately unfiltered, unlike the push trigger above. `validate` is a
+  # required status check on main, and GitHub does not count a path-filtered-out
+  # workflow as passing — it reports nothing, so the PR waits forever on a check
+  # that will never arrive. Running the validator on every PR costs ~15s and
+  # keeps any PR mergeable; a filter here would deadlock doc-only or asset-only
+  # changes (CLAUDE.md, LICENSE, docs/assets/) with admin override as the only exit.
   pull_request:
-    paths:
-      - ".claude-plugin/marketplace.json"
-      - "scripts/validate-marketplace.py"
-      - ".github/workflows/validate.yml"
-      - "README.md"
   workflow_dispatch:
 
 # Least privilege: the job only needs to read the checked-out tree.
