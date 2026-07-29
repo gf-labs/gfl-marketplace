@@ -117,6 +117,9 @@ A catalog entry looks like this:
 - **HTTPS `github.com` `.git` `url` sources.** The schema is broader — it also allows `github` (`owner/repo`), `git-subdir`, and `npm` sources, and `url` accepts SSH and bare URLs — but this catalog standardizes on one form.
 - **`sha` (optional) pins a plugin to a commit.** We track each plugin's default branch; add a `sha` for a reproducible, pinned install.
 
+The formal PR rules — branch protection, the validator gate, commit style — live in
+[`CONTRIBUTING.md`](./CONTRIBUTING.md).
+
 ---
 
 ## Local development
